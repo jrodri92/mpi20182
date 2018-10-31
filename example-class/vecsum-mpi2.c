@@ -85,15 +85,6 @@ int processRow(int index)
 	return result;
 }
 
-int DoSequencial()
-{
-	long i;
-	for (i = 0; i < LX; i++)
-	{
-		vec_sum[i] = processRow(i);
-	}
-}
-
 int nextWorker()
 {
 	if (currentWorker >= numWorkers)
