@@ -10,7 +10,7 @@
  #include <math.h>
 
  #define F_x 30000
- #define F_y 100000
+ #define F_y 10000
 
  long vec_sum[F_x];
  long Fi[F_x][F_y];

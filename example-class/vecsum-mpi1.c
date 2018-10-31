@@ -15,7 +15,7 @@
 #define FROM_WORKER 2
 
 #define LX 30000
-#define LY 100000
+#define LY 10000
 
 long vec_sum[LY];
 long matrix[LX][LY];
