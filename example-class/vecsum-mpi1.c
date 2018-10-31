@@ -106,6 +106,7 @@ void fillMatrix()
 
 void main(int argc, char **argv)
 {
+	double start;
 	initMPI(argc, argv);
 	if (taskId == MASTER)
 	{

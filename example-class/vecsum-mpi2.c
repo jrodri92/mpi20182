@@ -130,9 +130,10 @@ void fillMatrix()
 			matrix[i][j] = val;
 		}
 }
-double start;
+
 void main(int argc, char **argv)
 {
+	double start;
 	initMPI(argc, argv);
 	start = MPI_Wtime();
 	if (taskId == MASTER)
