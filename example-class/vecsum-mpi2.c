@@ -18,7 +18,7 @@
 #define LX 30000
 #define LY 10000
 
-long vec_sum[LX];
+long vec_sum[LY];
 long matrix[LX][LY];
 
 int taskId,
@@ -44,11 +44,11 @@ void sendRows()
 	long index;
 	long i;
 	long w;
-	for (i = 0; i < LX; i++)
+	for (i = 0; i < LY; i++)
 	{
 		w = nextWorker();
 		MPI_Send(&i, 1, MPI_LONG, w, FROM_MASTER, MPI_COMM_WORLD);
-		MPI_Send(&matrix[i][0], count, MPI_LONG, w, FROM_MASTER, MPI_COMM_WORLD);
+		MPI_Send(&matrix[0][i], count, MPI_LONG, w, FROM_MASTER, MPI_COMM_WORLD);
 	}
 	long fin = -1;
 	for (i = 1; i <= numWorkers; i++)
@@ -68,7 +68,7 @@ void recvRows()
 		MPI_Recv(&index, 1, MPI_LONG, MASTER, FROM_MASTER, MPI_COMM_WORLD, &status);
 		if (index != -1)
 		{
-			MPI_Recv(&matrix[index][0], count, MPI_LONG, MASTER, FROM_MASTER, MPI_COMM_WORLD, &status);
+			MPI_Recv(&matrix[0][index], count, MPI_LONG, MASTER, FROM_MASTER, MPI_COMM_WORLD, &status);
 			result = processRow(index);
 			MPI_Send(&index, 1, MPI_LONG, MASTER, FROM_MASTER, MPI_COMM_WORLD);
 			MPI_Send(&result, 1, MPI_LONG, MASTER, FROM_MASTER, MPI_COMM_WORLD);
@@ -81,7 +81,7 @@ int processRow(int index)
 	long i;
 	long result = 0;
 	for (i = 0; i < LX; i++)
-		result = result + matrix[index][i];
+		result = result + matrix[i][index];
 	return result;
 }
 
@@ -98,7 +98,7 @@ void recvResults()
 	long count = LX;
 	long i, index, w;
 	currentWorker = 0;
-	for (i = 0; i < LX; i++)
+	for (i = 0; i < LY; i++)
 	{
 		w = nextWorker();
 		MPI_Recv(&index, 1, MPI_LONG, w, FROM_MASTER, MPI_COMM_WORLD, &status);
